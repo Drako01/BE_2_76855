@@ -1,0 +1,28 @@
+{
+  "name": "be_2_76855",
+  "version": "1.0.0",
+  "description": "Primer proyecto de Backend2 - Coder",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node app.js",
+    "dev" : "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Drako01/BE_2_76855.git"
+  },
+  "author": "Alejandro Di Stefano",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Drako01/BE_2_76855/issues"
+  },
+  "homepage": "https://github.com/Drako01/BE_2_76855#readme",
+  "dependencies": {
+    "express": "^5.1.0",
+    "mongoose": "^8.17.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
