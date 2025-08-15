@@ -5,15 +5,16 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    last_name:{
+    last_name: {
         type: String,
         required: true,
         index: true
     },
-    email:{
+    email: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        index: true
     },
     age: {
         type: Number,
@@ -21,8 +22,16 @@ const userSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: true
+        required: function () { return !this.githubid; }
+    },
+    githubid: {
+        type: String,
+    },
+    role: {
+        type: String,
+        enum: ["user", "admin"],
+        default: "user"
     }
-});
+}, { timestamps: true });
 
 export const User = mongoose.model('User', userSchema);
