@@ -1,8 +1,11 @@
 import { Router } from "express";
 import { Student } from '../config/models/student.model.js'
 import mongoose from "mongoose";
+import { requiereJwtCookie , requireRole } from '../middleware/auth.middleware.js'
 
 const router = Router();
+
+router.use(requiereJwtCookie);
 
 router.get('/', async (req, res) => {
     try {
@@ -13,7 +16,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.post('/', async (req, res) => {
+router.post('/', requireRole('admin', 'user'), async (req, res) => {
     try {
         const { name, email, age } = req.body;
         if (!name || !email || !age) {
@@ -58,7 +61,7 @@ router.put('/:id', async (req, res) => {
     }
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', requireRole('admin'), async (req, res) => {
     try {
         if(!mongoose.Types.ObjectId.isValid(req.params.id)){
             return res.status(400).json({error: "ID Invalido"})

@@ -1,18 +1,13 @@
 import express from 'express';
-
 import homeRouter from './routes/home.router.js'
 import studentRouter from './routes/student.router.js'
 import authRouter from './routes/auth.router.js';
-import profileRouter from './routes/profile.router.js';
-
 import logger from './middleware/logger.middleware.js'
 import { connectAuto } from './config/db/connect.config.js'
-
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
-
 import passport from 'passport';
 import { initPassport } from './config/auth/passport.config.js'
 
@@ -20,7 +15,7 @@ const app = express();
 
 dotenv.config();
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(logger);
@@ -52,13 +47,11 @@ const startServer = async () => {
 
     initPassport();
     app.use(passport.initialize());
-    app.use(passport.session());
 
     // Llamadas al enrutador
     app.use('/', homeRouter);
-    app.use('/student', studentRouter);
     app.use('/auth', authRouter);
-    app.use('/auth/profile', profileRouter);
+    app.use('/student', studentRouter);
 
     app.use((req, res) => {
         res.status(404).json({ error: "Pagina no encontrada.!" });
