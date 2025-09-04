@@ -6,6 +6,8 @@ import authRouter from './routes/auth.router.js';
 import apiV1Router from './routes/api.v1.router.js';
 import advanceRouter from './routes/advancedRouter.js';
 import processRouter from './routes/process.router.js';
+import newStudentRouter from './routes/new_student.router.js';
+
 
 import logger from './middleware/logger.middleware.js'
 import { connectAuto } from './config/db/connect.config.js'
@@ -69,6 +71,8 @@ const startServer = async () => {
     app.use('/api/v1', apiV1Router);
     app.use('/advanced', advanceRouter);
     app.use('/process', processRouter);
+
+    app.use('/new/student', newStudentRouter);
 
 
     app.use((req, res) => {

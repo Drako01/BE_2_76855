@@ -14,5 +14,9 @@ BE_2_76855/
 │   └── models
 │       └── student.model.js
 ├── /middleware
-        └── logger.middleware.js
+│        └── logger.middleware.js
+├── /app
+    │    └── controllers
+    └──      services
+    └── dtos
 ```
