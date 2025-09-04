@@ -10,7 +10,7 @@ export const studentController = {
     },
     get: async (req, res, next) => {
         try {
-            const {id} = req.params;
+            const { id } = req.params;
             if (!mongoose.Types.ObjectId.isValid(id)) return res.status(400).json({ error: "Id Invalido" })
             const doc = await svc.getById(id);
             return doc ? res.json(doc) : res.status(404).json({ error: "No se encontro" })
@@ -25,7 +25,7 @@ export const studentController = {
     },
     update: async (req, res, next) => {
         try {
-            const {id} = req.params;
+            const { id } = req.params;
             if (!mongoose.Types.ObjectId.isValid(id)) return res.status(400).json({ error: "Id Invalido" })
             const dto = toUpdateStudentDTO(req.body);
             const out = await svc.update(id, dto);
@@ -34,7 +34,7 @@ export const studentController = {
     },
     remove: async (req, res, next) => {
         try {
-            const {id} = req.params;
+            const { id } = req.params;
             if (!mongoose.Types.ObjectId.isValid(id)) return res.status(400).json({ error: "Id Invalido" })
             const ok = await svc.delete(id);
             return ok ? res.status(204).end() : res.status(404).json({ error: "No se encontro" })
