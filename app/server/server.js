@@ -7,6 +7,7 @@ import apiV1Router from '../../routes/api.v1.router.js';
 import advanceRouter from '../../routes/advancedRouter.js';
 import processRouter from '../../routes/process.router.js';
 import newStudentRouter from '../../routes/new_student.router.js';
+import orderRouter from '../../routes/orders.router.js';
 
 
 import logger from '../../middleware/logger.middleware.js'
@@ -17,7 +18,13 @@ import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import passport from 'passport';
 import { initPassport } from '../../config/auth/passport.config.js'
-import env, { validateEnv } from '../../config/env.config.js';
+import { validateEnv } from '../../config/env.config.js';
+
+import { engine } from 'express-handlebars';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { hbsHelpers } from './hbs.helper.js';
+
 
 const app = express();
 
@@ -29,6 +36,8 @@ app.use(express.json());
 app.use(logger);
 app.use(cookieParser('clave_secreta'));
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export const startServer = async () => {
 
@@ -57,6 +66,15 @@ export const startServer = async () => {
         })
     );
 
+    app.engine('handlebars', engine({
+        defaultLayout: 'main',
+        layoutsDir: path.join(__dirname, '../../views/layouts'),
+        helpers: hbsHelpers,
+    }));
+    app.set('view engine', 'handlebars');
+    app.set('views', path.join(__dirname, '../../views'));
+
+
     initPassport();
     app.use(passport.initialize());
 
@@ -65,6 +83,8 @@ export const startServer = async () => {
     app.use('/', homeRouter);
     app.use('/auth', authRouter);
     app.use('/student', studentRouter);
+
+    app.use('/', orderRouter);
 
 
     // Agrupar Routers versionados
