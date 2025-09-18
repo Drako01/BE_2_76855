@@ -8,6 +8,8 @@ import advanceRouter from '../../routes/advancedRouter.js';
 import processRouter from '../../routes/process.router.js';
 import newStudentRouter from '../../routes/new_student.router.js';
 import orderRouter from '../../routes/orders.router.js';
+import messagingRouter from '../../routes/messaging.router.js';
+
 
 
 import logger from '../../middleware/logger.middleware.js'
@@ -85,7 +87,7 @@ export const startServer = async () => {
     app.use('/student', studentRouter);
 
     app.use('/', orderRouter);
-
+    app.use('/', messagingRouter);
 
     // Agrupar Routers versionados
     app.use('/api/v1', apiV1Router);
