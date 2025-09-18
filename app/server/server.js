@@ -9,8 +9,7 @@ import processRouter from '../../routes/process.router.js';
 import newStudentRouter from '../../routes/new_student.router.js';
 import orderRouter from '../../routes/orders.router.js';
 import messagingRouter from '../../routes/messaging.router.js';
-
-
+import mailerRouter from '../../routes/mailer.router.js';
 
 import logger from '../../middleware/logger.middleware.js'
 import { connectAuto } from '../../config/db/connect.config.js'
@@ -88,6 +87,8 @@ export const startServer = async () => {
 
     app.use('/', orderRouter);
     app.use('/', messagingRouter);
+    app.use('/', mailerRouter);
+
 
     // Agrupar Routers versionados
     app.use('/api/v1', apiV1Router);
